@@ -2,7 +2,7 @@
 //! It defines APIs for constructing and updating commitments.
 
 use ff::{Field, PrimeField};
-use pairing::{bls12_381::*, CurveAffine, CurveProjective};
+use pairing_plus::{bls12_381::*, CurveAffine, CurveProjective};
 use pairings::err::*;
 use pairings::hash_to_field_pointproofs::*;
 use pairings::misc::*;

@@ -3,7 +3,7 @@
 
 use self::param::Ciphersuite;
 use self::pointproofs_groups::*;
-use pairing::bls12_381::*;
+use pairing_plus::bls12_381::*;
 
 /// Structure for porver parameters.
 #[derive(Clone, Debug)]

@@ -2,7 +2,7 @@
 //! it exposes Rust APIs to C.
 
 extern crate libc;
-use pairing::serdes::SerDes;
+use pairing_plus::serdes::SerDes;
 use pairings::*;
 use std::ffi;
 use std::slice;

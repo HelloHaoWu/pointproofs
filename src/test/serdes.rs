@@ -1,5 +1,5 @@
-use pairing::serdes::SerDes;
-use pairing::CurveProjective;
+use pairing_plus::serdes::SerDes;
+use pairing_plus::CurveProjective;
 use pairings::param::paramgen_from_seed;
 use pairings::pointproofs_groups::*;
 use pairings::*;

@@ -1,4 +1,4 @@
-use pairing::CurveProjective;
+use pairing_plus::CurveProjective;
 use pairings::param::paramgen_from_seed;
 use pairings::*;
 

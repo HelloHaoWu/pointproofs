@@ -2,11 +2,13 @@
 //! It defines system parameters and functions to generate/validate them.
 
 use ff::Field;
-use pairing::serdes::SerDes;
-use pairing::{bls12_381::*, CurveAffine, CurveProjective};
+use pairing_plus::serdes::SerDes;
+use pairing_plus::bls12_381::*;
+use pairing_plus::{CurveAffine, CurveProjective};
 use pairings::err::*;
 use pairings::hash_to_field_pointproofs::hash_to_field_pointproofs;
 use pairings::*;
+use forfix::paramgen;
 
 const VALID_CIPHERSUITE: [u8; 1] = [0u8];
 
@@ -297,12 +299,12 @@ impl std::cmp::PartialEq for VerifierParams {
 pub fn read_param<R: std::io::Read>(
     reader: &mut R,
 ) -> Result<(ProverParams, VerifierParams), String> {
-    let param = match pointproofs_paramgen::PointproofsParams::deserialize(reader, true) {
+    let param = match paramgen::PointproofsParams::deserialize(reader, true) {
         Err(e) => return Err(format!("read_param: {}", e.to_string())),
         Ok(p) => p,
     };
 
-    if !pointproofs_paramgen::consistent(&param) {
+    if !paramgen::consistent(&param) {
         return Err("Input params are not consistent".to_owned());
     };
 
@@ -313,9 +315,9 @@ pub fn read_param<R: std::io::Read>(
         n: param.n,
         generators: [
             param.g1_alpha_1_to_n,
-            vec![PointproofsG1::zero().into_affine()],
+            vec![PointproofsG1::zero().into_affine()],  // 这个有问题：expected `pairing_plus::bls12_381::ec::g1::G1Affine`, found `pairing_plus::bls12_381::G1Affine`
             param.g1_alpha_nplus2_to_2n,
-        ]
+        ]  //  expected `pairing_plus::bls12_381::G1Affine`, found `pairing_plus::bls12_381::ec::g1::G1Affine`
         .concat(),
         pp_len: 0,
         precomp: vec![],
@@ -325,10 +327,10 @@ pub fn read_param<R: std::io::Read>(
     let vp = VerifierParams {
         ciphersuite: 0,
         n: param.n,
-        generators: param.g2_alpha_1_to_n,
+        generators: param.g2_alpha_1_to_n, // expected `pairing_plus::bls12_381::G2Affine`, found `pairing_plus::bls12_381::ec::g2::G2Affine`
         pp_len: 0,
         precomp: vec![],
-        gt_elt: param.gt_alpha_nplus1,
+        gt_elt: param.gt_alpha_nplus1, // expected `pairing_plus::bls12_381::Fq12`, found `pairing_plus::bls12_381::fq12::Fq12`
     };
 
     // groups switched

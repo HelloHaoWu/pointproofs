@@ -1,7 +1,7 @@
 //! this file is part of the pointproofs.
 //! It defines some misc functions.
 
-use pairing::CurveAffine;
+use pairing_plus::CurveAffine;
 use pairings::err::ERR_PARAM;
 use pairings::*;
 use std::collections::HashSet;

@@ -1,5 +1,5 @@
-use pairing::bls12_381::*;
-use pairing::Engine;
+use pairing_plus::bls12_381::*;
+use pairing_plus::Engine;
 
 // =========================
 // the groups are NOT switched

@@ -4,8 +4,8 @@
 //! https://github.com/algorand/pointproofs/blob/master/SPEC.md#hashes
 use bigint::U512;
 use ff::PrimeField;
-use pairing::bls12_381::*;
-use pairing::serdes::SerDes;
+use pairing_plus::bls12_381::*;
+use pairing_plus::serdes::SerDes;
 use pairings::err::*;
 use pairings::param::*;
 use pairings::Commitment;
